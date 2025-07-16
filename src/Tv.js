@@ -1,21 +1,21 @@
 import React from 'react'
-import MovieItem from './MovieItem.js'
+import TvItem from './TvItem'
 import './App.css';
 
-function Movie({moviePlaceHolder}) {
+function Tv({tvPlaceHolder}) {
 
-  const topFiveMovie = moviePlaceHolder
+  const topFiveTv = tvPlaceHolder
     .sort((a, b) => b.vote_average - a.vote_average)
     .sort((c,d) => d.popularity - c.popularity) 
     .slice(0, 5);
 
   return (
     <div className="results">
-      {topFiveMovie.map((movie,key) => {
-          return <MovieItem key={key} movie={movie}/>
+      {topFiveTv.map((tv,key) => {
+          return <TvItem key={key} tv={tv}/>
       })}
     </div>
   )
 }
 
-export default Movie
+export default Tv
