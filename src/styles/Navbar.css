@@ -1,0 +1,75 @@
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #121212;
+    padding: 20px 40px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar-logo a {
+    color: #00acc1;
+    text-decoration: none;
+    font-size: 30px;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+.navbar-logo a:hover {
+    color: #03c8e4;
+}
+
+.navbar-buttons,
+.navbar-user {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Giriş/Kayıt butonları */
+.nav-btn {
+    padding: 10px 18px;
+    background: linear-gradient(45deg, #00acc1, #007c91);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.nav-btn:hover {
+    background: linear-gradient(45deg, #007c91, #00acc1);
+}
+
+/* Hoşgeldin yazısı */
+.welcome-text {
+    color: #eee;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.welcome-text span {
+    font-weight: bold;
+    color: #00acc1;
+}
+
+/* Çıkış butonu */
+.logout-btn {
+    padding: 10px 18px;
+    background: linear-gradient(45deg, #00acc1, #007c91);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.logout-btn:hover {
+    background: linear-gradient(45deg, #007c91, #00acc1);
+}

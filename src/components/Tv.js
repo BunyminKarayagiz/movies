@@ -1,6 +1,6 @@
 import React from 'react'
 import TvItem from './TvItem'
-import './App.css';
+import '../styles/MoviesAndTv.css';
 
 function Tv({tvPlaceHolder}) {
 

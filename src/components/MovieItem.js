@@ -1,5 +1,5 @@
 import React from 'react'
-import './App.css';
+import '../styles/MoviesAndTv.css';
 
 function MovieItem({movie}) {
   return (

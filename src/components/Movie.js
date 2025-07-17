@@ -1,6 +1,6 @@
 import React from 'react'
 import MovieItem from './MovieItem.js'
-import './App.css';
+import '../styles/MoviesAndTv.css';
 
 function Movie({moviePlaceHolder}) {
 

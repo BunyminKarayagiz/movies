@@ -1,0 +1,44 @@
+
+.formDiv {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 40px;
+    background-color: #2e2e2e;
+    padding: 20px 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+}
+
+.formDiv label {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.formDiv input {
+    padding: 10px;
+    width: 300px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+}
+
+.search-btn {
+    margin-top: 10px;
+    padding: 12px 25px;
+    font-size: 18px;
+    font-weight: bold;
+    color: white;
+    background: linear-gradient(45deg, #007c91, #00acc1);
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s ease;
+}
+
+.search-btn:hover {
+    transform: scale(1.05);
+    background:linear-gradient(45deg, #00acc1, #007c91);
+}
