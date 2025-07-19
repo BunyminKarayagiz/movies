@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { auth } from "../Firebase.js"; // doğru yolu kendi projenin yapısına göre ayarla
+import { auth,db } from "../Firebase.js"; // doğru yolu kendi projenin yapısına göre ayarla
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import "../styles/Login.css";
+
 
 function Login() {
   const [userMail, setUserMail] = useState("");
@@ -18,7 +19,7 @@ function Login() {
         userPass
       );
 
-      console.log("Giris Basarili", userLogIn.user);
+
       navigate("/");
     } catch (error) {
       if (error.code === "auth/user-not-found") {
