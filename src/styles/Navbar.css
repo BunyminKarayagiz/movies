@@ -30,7 +30,7 @@
 }
 
 /* Giriş/Kayıt butonları */
-.nav-btn {
+.nav-btn, .admin-btn {
     padding: 10px 18px;
     background: linear-gradient(45deg, #00acc1, #007c91);
     color: white;

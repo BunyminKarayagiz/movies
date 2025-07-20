@@ -2,15 +2,13 @@ import React, { useState } from "react";
 import {auth,db} from "../Firebase.js";
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import '../styles/SignUp.css';
-import { useNavigate } from 'react-router-dom';
 import { isMailValid,isPasswordStrong } from "../helpers/validFunctions.js";
-import { setDoc,doc} from "firebase/firestore";
+import { setDoc,doc,serverTimestamp} from "firebase/firestore";
 
 function SignUp() {
   const [userMail, setUserMail] = useState("");
   const [userPass, setUserPass] = useState("");
   const [userName, setUserName] = useState("");
-  const navigate = useNavigate();
 
 
 
@@ -28,13 +26,12 @@ function SignUp() {
       const userFireBaseMail = userLogUp.user.email;
 
       await setDoc(doc(db, "users", userId), {
-        createdAt: new Date().toUTCString(),
-        email: userFireBaseMail,
+        createdAt: serverTimestamp(),
+        email: userFireBaseMail,    
         displayName: userName, // ya kayıt formundan al
         watchList: [],
         role:'user'
       });
-      navigate('/login');
     } catch (error) {
       alert(error.message);
     }
