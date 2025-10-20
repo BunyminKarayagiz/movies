@@ -39,6 +39,10 @@ function UserAdd() {
       });
 
       console.log("Kullanici Eklendi")
+      setUserMail("");
+      setUserPass("");
+      setUserName("");
+      setUserRole("user");
     } catch (error) {
       alert(error.message);
     }

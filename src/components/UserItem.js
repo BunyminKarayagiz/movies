@@ -25,8 +25,8 @@ const handleDelete = async (userId) => {
 function UserItem({ user }) {
   return (
     <div >
-      <div className="card">
-        <div className="card-content">
+      <div className="user-card">
+        <div className="user-content">
           <h1>Name: {user.data.displayName}</h1>
           <p>
             <span>ID:</span>{user.id}</p>

@@ -4,7 +4,7 @@ import '../styles/MoviesAndTv.css';
 function TvItem({tv}) {
   return (
     <div>
-        <div className='card'>
+        <div className='card-item'>
         <img src={`https://image.tmdb.org/t/p/w500${tv.poster_path}`} alt='Poster'/>
         <div className="card-content">
             <h1>{tv.name}</h1>
