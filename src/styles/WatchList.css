@@ -1,0 +1,102 @@
+/* WatchList.css */
+
+/* Genel container yatay kaydırmalı */
+.watchlist-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 20px;
+  gap: 20px;
+  background-color: #141414; /* Netflix tarzı koyu arka plan */
+  scroll-behavior: smooth;
+}
+
+.watchlist-container::-webkit-scrollbar {
+  height: 8px;
+}
+
+.watchlist-container::-webkit-scrollbar-thumb {
+  background: #e50914;
+  border-radius: 4px;
+}
+
+.watchlist-container::-webkit-scrollbar-track {
+  background: #222;
+}
+
+/* Her bir film kartı */
+.watchlist-item {
+  position: relative;
+  min-width: 200px;
+  width: 200px;
+  flex-shrink: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.3s;
+}
+
+.watchlist-item:hover {
+  transform: scale(1.15);
+  z-index: 10;
+}
+
+/* Poster resmi */
+.watchlist-item img {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+  display: block;
+}
+
+/* Hover overlay içerik */
+.watchlist-content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: linear-gradient(to top, rgba(20,20,20,0.95), rgba(20,20,20,0));
+  color: #fff;
+  padding: 10px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.watchlist-item:hover .watchlist-content {
+  opacity: 1;
+}
+
+.watchlist-content h1 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin: 0 0 5px 0;
+}
+
+.watchlist-content p {
+  font-size: 0.8rem;
+  margin: 2px 0;
+  line-height: 1.2;
+}
+
+.watchlist-content span {
+  font-weight: 600;
+  color: #e50914;
+}
+
+/* Responsive küçük ekranlar */
+@media (max-width: 600px) {
+  .watchlist-item {
+    min-width: 140px;
+  }
+
+  .watchlist-item img {
+    height: 210px;
+  }
+
+  .watchlist-content h1 {
+    font-size: 0.85rem;
+  }
+
+  .watchlist-content p {
+    font-size: 0.7rem;
+  }
+}

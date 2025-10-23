@@ -17,8 +17,7 @@
   border-radius: 18px;
   width: 280px;
   overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;  
 }
 
 .card-item:hover {
@@ -90,4 +89,25 @@
   .card-content h1 {
     font-size: 18px;
   }
+}
+
+.add-watchlist-btn{
+  z-index: 100;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  right: 10px;
+  top: 10px;
+  border-radius: 30%;
+  border-color: #00aaff;
+  background-color: black;
+  opacity:0.7;
+  cursor: pointer;
+}
+.add-watchlist-btn:hover{
+  opacity: 1;
+}
+
+.add-movie-icon{
+  color: white;
 }

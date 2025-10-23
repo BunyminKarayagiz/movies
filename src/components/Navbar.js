@@ -34,6 +34,7 @@ function Navbar() {
   };
 
   const goToAdmin = () => navigate('/admin');
+  const goToWatchList = () => navigate('/watchlist');
 
   return (
     <div className="navbar">
@@ -47,6 +48,7 @@ function Navbar() {
           {userRole === "admin" && (
             <button className="admin-btn" onClick={goToAdmin}>Admin</button>
           )}
+          <button className="watch-list-btn" onClick={goToWatchList}>WatchList</button>
         </div>
       ) : (
         <div className="navbar-buttons">
