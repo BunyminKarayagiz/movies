@@ -7,7 +7,7 @@ function Movie({moviePlaceHolder}) {
   const topFiveMovie = moviePlaceHolder
     .sort((a, b) => b.vote_average - a.vote_average)
     .sort((c,d) => d.popularity - c.popularity) 
-    .slice(0, 5);
+    .slice(0, 12);
     
   return (
     <div className="results">

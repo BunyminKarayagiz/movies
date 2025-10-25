@@ -1,4 +1,4 @@
-import { doc, updateDoc, arrayUnion, getDoc, setDoc } from "firebase/firestore";
+import { doc, updateDoc,arrayRemove, arrayUnion, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../Firebase.js";
 
 // İzleme listesine film ekle
@@ -53,3 +53,17 @@ export async function getUserWatchlist(userUid) {
     return [];
   }
 }
+
+export const removeFromWatchlist = async (userId, movie) => {
+  const userDocRef = doc(db, "users", userId);
+  const userSnap = await getDoc(userDocRef);
+
+  if (!userSnap.exists()) {
+    console.error("Kullanıcı bulunamadı");
+    return;
+  }
+
+  await updateDoc(userDocRef, {
+    watchList: arrayRemove(movie)
+  });
+};
