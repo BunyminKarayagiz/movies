@@ -98,7 +98,7 @@ function Item({ item }) {
       )}
 
       <div className="card-content">
-        <h1>{item.original_title || item.name}</h1>
+        <h1>{item.title || item.name}</h1>
         <p><span>Dil:</span> {item.original_language}</p>
         <p><span>Açıklama:</span> {item.overview}</p>
       </div>
