@@ -111,3 +111,12 @@
 .add-movie-icon{
   color: white;
 }
+
+.trailer-player{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.4s ease;
+}
