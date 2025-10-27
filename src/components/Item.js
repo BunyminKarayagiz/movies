@@ -1,15 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import '../styles/Items.css';
-import defaultPoster from '../images/notfound.png';
+import React, { useState, useEffect } from "react";
+import "../styles/Items.css";
+import defaultPoster from "../images/notfound.png";
 import { MdAdd } from "react-icons/md";
-import { addToWatchlist } from '../services/firestoreService.js';
-import { auth } from '../Firebase.js';
+import { addToWatchlist } from "../services/firestoreService.js";
+import { auth } from "../Firebase.js";
 import axios from "axios";
 
 function Item({ item }) {
   const [loading, setLoading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [trailerUrl, setTrailerUrl] = useState(null);
+  const [videoCache, setVideoCache] = useState({});
 
   const imageUrl = item.poster_path
     ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
@@ -40,34 +41,48 @@ function Item({ item }) {
     }
   };
 
-  // 🔹 Hover sırasında fragman verisini TMDB'den çek
+  // 🔹 Hover olduğunda sadece 1 kere API'den video çek, sonra cache'den kullan
   useEffect(() => {
     const fetchTrailer = async () => {
-      if (isHovered && !trailerUrl) {
-        try {
-          const response = await axios.get(
-            `https://api.themoviedb.org/3/movie/${item.id}/videos`,
-            {
-              params: { api_key: process.env.REACT_APP_API_KEY, language: "en-US" },
-            }
-          );
+      if (!isHovered || trailerUrl || videoCache[item.id]) return;
 
-          const trailers = response.data.results;
-          const youtubeTrailer = trailers.find(
-            (vid) => vid.site === "YouTube" && vid.type === "Trailer"
-          );
-
-          if (youtubeTrailer) {
-            setTrailerUrl(`https://www.youtube.com/embed/${youtubeTrailer.key}?autoplay=1&mute=0`);
+      try {
+        const response = await axios.get(
+          `https://api.themoviedb.org/3/movie/${item.id}/videos`,
+          {
+            headers: {
+              Authorization: process.env.REACT_APP_ACCESS_TOKEN,
+            },
+            params: {
+              api_key: process.env.REACT_APP_API_KEY,
+            },
           }
-        } catch (error) {
-          console.error("Fragman alınamadı:", error);
+        );
+
+        const trailers = response.data.results;
+        const youtubeTrailer = trailers.find(
+          (vid) => vid.site === "YouTube" && vid.type === "Trailer"
+        );
+
+        if (youtubeTrailer) {
+          const url = `https://www.youtube.com/embed/${youtubeTrailer.key}?autoplay=1&mute=0&controls=0&rel=0&modestbranding=1`;
+          setTrailerUrl(url);
+          setVideoCache((prev) => ({ ...prev, [item.id]: url }));
         }
+      } catch (error) {
+        console.error("Fragman alınamadı:", error);
       }
     };
 
     fetchTrailer();
-  }, [isHovered, item.id, trailerUrl]);
+  }, [isHovered, item.id, trailerUrl, videoCache]);
+
+  // Cache’de varsa onu kullan
+  useEffect(() => {
+    if (isHovered && videoCache[item.id]) {
+      setTrailerUrl(videoCache[item.id]);
+    }
+  }, [isHovered, item.id, videoCache]);
 
   return (
     <div
@@ -75,32 +90,33 @@ function Item({ item }) {
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
-      <div>
-        <button
-          className="add-watchlist-btn"
-          onClick={handleAddToWatchlist}
-          disabled={loading}
-        >
-          <MdAdd className="add-movie-icon" />
-        </button>
-      </div>
+      <button
+        className="add-watchlist-btn"
+        onClick={handleAddToWatchlist}
+        disabled={loading}
+      >
+        <MdAdd className="add-movie-icon" />
+      </button>
 
-      {/* 🔹 Hover olduğunda fragman oynat */}
       {isHovered && trailerUrl ? (
         <iframe
           className="trailer-player"
           src={trailerUrl}
           title="Trailer"
           allow="autoplay; encrypted-media"
+          frameBorder="0"
         ></iframe>
       ) : (
-        <img src={imageUrl} alt="Poster" />
+        <img src={imageUrl} alt="Poster" className="poster-image" />
       )}
 
       <div className="card-content">
         <h1>{item.title || item.name}</h1>
         <p><span>Dil:</span> {item.original_language}</p>
-        <p><span>Açıklama:</span> {item.overview}</p>
+        <p><span>Açıklama:</span> {item.overview.length > 200
+      ? item.overview.substring(0, 200) + '...'
+      : item.overview}</p>
+        <p><span>Çıkış Tarihi:</span> {item.release_date || item.first_air_date}</p>
       </div>
     </div>
   );

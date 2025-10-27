@@ -39,7 +39,10 @@ function Navbar() {
   return (
     <div className="navbar">
       <h1 className="navbar-logo">
-        <Link to="/">MovieExplorer</Link>
+        <Link 
+          onClick={(e) => {e.preventDefault();window.location.assign("/");}}>
+          MovieExplorer
+        </Link>
       </h1>
       {currentUser ? (
         <div className="navbar-user">

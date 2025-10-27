@@ -5,24 +5,20 @@ import Item from "../components/Item.js";
 function Items({ movie = [], tv = [] }) {
   // Orijinal dizileri değiştirmemek için kopya alıyoruz
   return (
-    <div className="results-container">
-      <section className="movies-section">
-        <h2>Movies</h2>
-        <div className="results">
-          {movie.map((item, index) => (
-            <Item key={item.id ?? `movie-${index}`} item={item} type="movie" />
-          ))}
-        </div>
-      </section>
+    <div className="items-section">
+      <h2>Top Movies</h2>
+      <div className="scroll-container">
+        {movie.map((item) => (
+          <Item key={item.id} item={item} />
+        ))}
+      </div>
 
-      <section className="tv-section">
-        <h2>Series</h2>
-        <div className="results">
-          {tv.map((item, index) => (
-            <Item key={item.id ?? `tv-${index}`} item={item} type="tv" />
-          ))}
-        </div>
-      </section>
+      <h2>Top TV Shows</h2>
+      <div className="scroll-container">
+        {tv.map((item) => (
+          <Item key={item.id} item={item} />
+        ))}
+      </div>
     </div>
   );
 }

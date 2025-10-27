@@ -57,7 +57,7 @@ function Home() {
               b.vote_average - a.vote_average || b.popularity - a.popularity
           )
           .slice(0, 12);
-
+          console.log(topSeries)
         setMovie(topMovies);
         setTv(topSeries)
       } catch (error) {
@@ -97,7 +97,7 @@ function Home() {
             b.popularity - a.popularity || b.vote_average - a.vote_average
         )
         .slice(0, 12);
-
+        
       setMovie(sortedMovies);
       setTv(sortedTv);
     } catch (error) {

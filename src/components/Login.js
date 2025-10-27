@@ -13,7 +13,7 @@ function Login() {
   const signInSubmitting = async (event) => {
     event.preventDefault()
     try {
-      const userLogIn = await signInWithEmailAndPassword(
+      await signInWithEmailAndPassword(
         auth,
         userMail,
         userPass
