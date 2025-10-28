@@ -5,12 +5,14 @@ import { MdAdd } from "react-icons/md";
 import { addToWatchlist } from "../services/firestoreService.js";
 import { auth } from "../Firebase.js";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Item({ item }) {
   const [loading, setLoading] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
   const [trailerUrl, setTrailerUrl] = useState(null);
   const [videoCache, setVideoCache] = useState({});
+  const type = item.title ? "movie" : "tv";
 
   const imageUrl = item.poster_path
     ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
@@ -48,7 +50,7 @@ function Item({ item }) {
 
       try {
         const response = await axios.get(
-          `https://api.themoviedb.org/3/movie/${item.id}/videos`,
+          `https://api.themoviedb.org/3/${type}/${item.id}/videos`,
           {
             headers: {
               Authorization: process.env.REACT_APP_ACCESS_TOKEN,
@@ -63,7 +65,6 @@ function Item({ item }) {
         const youtubeTrailer = trailers.find(
           (vid) => vid.site === "YouTube" && vid.type === "Trailer"
         );
-
         if (youtubeTrailer) {
           const url = `https://www.youtube.com/embed/${youtubeTrailer.key}?autoplay=1&mute=0&controls=0&rel=0&modestbranding=1`;
           setTrailerUrl(url);
@@ -75,7 +76,7 @@ function Item({ item }) {
     };
 
     fetchTrailer();
-  }, [isHovered, item.id, trailerUrl, videoCache]);
+  }, [isHovered, item.id, trailerUrl, videoCache,type]);
 
   // Cache’de varsa onu kullan
   useEffect(() => {
@@ -85,6 +86,7 @@ function Item({ item }) {
   }, [isHovered, item.id, videoCache]);
 
   return (
+    
     <div
       className="card-item"
       onMouseEnter={() => setIsHovered(true)}
@@ -97,7 +99,6 @@ function Item({ item }) {
       >
         <MdAdd className="add-movie-icon" />
       </button>
-
       {isHovered && trailerUrl ? (
         <iframe
           className="trailer-player"
@@ -109,16 +110,18 @@ function Item({ item }) {
       ) : (
         <img src={imageUrl} alt="Poster" className="poster-image" />
       )}
-
-      <div className="card-content">
-        <h1>{item.title || item.name}</h1>
-        <p><span>Dil:</span> {item.original_language}</p>
-        <p><span>Açıklama:</span> {item.overview.length > 200
-      ? item.overview.substring(0, 200) + '...'
-      : item.overview}</p>
-        <p><span>Çıkış Tarihi:</span> {item.release_date || item.first_air_date}</p>
+      <Link to={`/${type}/${item.id}`} className="movie-card-link">
+        <div className="card-content">
+          <h1>{item.title || item.name}</h1>
+          <p><span>Dil:</span> {item.original_language}</p>
+          <p><span>Açıklama:</span> {item.overview.length > 200
+        ? item.overview.substring(0, 200) + '...'
+        : item.overview}</p>
+          <p><span>Çıkış Tarihi:</span> {item.release_date || item.first_air_date}</p>
+        </div>
+        </Link>
       </div>
-    </div>
+
   );
 }
 

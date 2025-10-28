@@ -22,7 +22,6 @@ function Home() {
               Authorization: myAccessToken,
             },
             params: {
-              api_key: myApiKey,
               language: "en-US",
               page: 1,
             },
@@ -35,7 +34,6 @@ function Home() {
               Authorization: myAccessToken,
             },
             params: {
-              api_key: myApiKey,
               language: "en-US",
               page: 1,
             },
@@ -57,7 +55,7 @@ function Home() {
               b.vote_average - a.vote_average || b.popularity - a.popularity
           )
           .slice(0, 12);
-          console.log(topSeries)
+
         setMovie(topMovies);
         setTv(topSeries)
       } catch (error) {

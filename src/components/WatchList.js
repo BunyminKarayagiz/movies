@@ -6,6 +6,7 @@ import "../styles/WatchList.css";
 import { MdDeleteForever } from "react-icons/md";
 import { FaRegSadTear } from "react-icons/fa";
 import { DragDropContext, Droppable, Draggable } from "@hello-pangea/dnd";
+import { Link } from "react-router-dom";
 
 function WatchList() {
   const [watchList, setWatchList] = useState([]);
@@ -92,6 +93,7 @@ function WatchList() {
                           <MdDeleteForever className="del-item-icon" />
                         </button>
                       </div>
+                      <Link to={`/${movie.title ? "movie" : "tv"}/${movie.id}`} className="movie-card-link">
                       <img
                         src={
                           movie.poster_path
@@ -100,15 +102,17 @@ function WatchList() {
                         }
                         alt="Poster"
                       />
-                      <div className="watchlist-content">
-                        <h1>{movie.title}</h1>
-                        <p>
-                          <span>Dil:</span> {movie.original_language || "Bilinmiyor"}
-                        </p>
-                        <p>
-                          <span>Açıklama:</span> {movie.overview}
-                        </p>
-                      </div>
+                      
+                        <div className="watchlist-content">
+                          <h1>{movie.title}</h1>
+                          <p>
+                            <span>Dil:</span> {movie.original_language || "Bilinmiyor"}
+                          </p>
+                          <p>
+                            <span>Açıklama:</span> {movie.overview}
+                          </p>
+                        </div>
+                      </Link>
                     </div>
                   )}
                 </Draggable>
