@@ -5,6 +5,7 @@ import Signup from './components/SignUp.js';
 import Home from './Home.js';      // Film ve TV listelerinin olduğu sayfa
 import Admin from './components/Admin.js'
 import UserLayout from './UserLayout.js';
+import Profile from './components/Profile.js';
 import WatchList from "./components/WatchList";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ItemDetail from "./components/ItemDetails.js"
@@ -22,6 +23,7 @@ function App() {
       <Route path="/watchlist" element={<WatchList />} />
       <Route path="/movie/:id" element={<ItemDetail type="movie" />} />
       <Route path="/tv/:id" element={<ItemDetail type="tv" />} />
+      <Route path="/profile" element={<Profile />} />
     </Route>
     <Route path="/admin" element={<Admin />} />
 
