@@ -4,8 +4,8 @@ import defaultPoster from "../images/notfound.png";
 import { MdAdd } from "react-icons/md";
 import { addToWatchlist } from "../services/firestoreService.js";
 import { auth } from "../Firebase.js";
-import axios from "axios";
 import { Link } from "react-router-dom";
+import {fetchTrailer} from "../services/apiServices.js"
 
 function Item({ item }) {
   const [loading, setLoading] = useState(false);
@@ -28,6 +28,7 @@ function Item({ item }) {
     setLoading(true);
     try {
       const result = await addToWatchlist(user.uid, item);
+      
       if (result === "added") {
         alert("Film izleme listene eklendi!");
       } else if (result === "already_exists") {
@@ -45,38 +46,13 @@ function Item({ item }) {
 
   // 🔹 Hover olduğunda sadece 1 kere API'den video çek, sonra cache'den kullan
   useEffect(() => {
-    const fetchTrailer = async () => {
       if (!isHovered || trailerUrl || videoCache[item.id]) return;
-
-      try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/${type}/${item.id}/videos`,
-          {
-            headers: {
-              Authorization: process.env.REACT_APP_ACCESS_TOKEN,
-            },
-            params: {
-              api_key: process.env.REACT_APP_API_KEY,
-            },
-          }
-        );
-
-        const trailers = response.data.results;
-        const youtubeTrailer = trailers.find(
-          (vid) => vid.site === "YouTube" && vid.type === "Trailer"
-        );
-        if (youtubeTrailer) {
-          const url = `https://www.youtube.com/embed/${youtubeTrailer.key}?autoplay=1&mute=0&controls=0&rel=0&modestbranding=1`;
+      fetchTrailer(type,item).then((url) => {
           setTrailerUrl(url);
           setVideoCache((prev) => ({ ...prev, [item.id]: url }));
-        }
-      } catch (error) {
-        console.error("Fragman alınamadı:", error);
-      }
-    };
+      });
 
-    fetchTrailer();
-  }, [isHovered, item.id, trailerUrl, videoCache,type]);
+  }, [isHovered, item, trailerUrl, videoCache,type]);
 
   // Cache’de varsa onu kullan
   useEffect(() => {

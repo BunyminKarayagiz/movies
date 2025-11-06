@@ -1,11 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/Navbar.css";
-import { auth,db } from "../Firebase.js";
+import { auth, db } from "../Firebase.js";
 import { signOut, onAuthStateChanged } from "firebase/auth";
-import { Link} from "react-router-dom";
-import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
-import { useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -30,33 +28,32 @@ function Navbar() {
     await signOut(auth);
     setCurrentUser(null);
     setUserRole(null);
-    navigate('/');
+    navigate("/");
   };
-
-  const goToAdmin = () => navigate('/admin');
-  const goToWatchList = () => navigate('/watchlist');
 
   return (
     <div className="navbar">
       <h1 className="navbar-logo">
         <Link 
-          onClick={(e) => {e.preventDefault();window.location.assign("/");}}>
+          onClick={(e) => { e.preventDefault(); window.location.assign("/"); }}>
           MovieExplorer
         </Link>
       </h1>
+
       {currentUser ? (
-        <div className="navbar-user">
-          <p className="welcome-text">Hoşgeldin, <span>{currentUser.email}</span></p>
-          <button className="logout-btn" onClick={logOut}>Çıkış Yap</button>
+        <div className="navbar-links">
           {userRole === "admin" && (
-            <button className="admin-btn" onClick={goToAdmin}>Admin</button>
+            <div className="nav-item" onClick={() => navigate("/admin")}>Admin</div>
           )}
-          <button className="watch-list-btn" onClick={goToWatchList}>WatchList</button>
+          <div className="nav-item" onClick={() => navigate("/watchlist")}>WatchList</div>
+          <div className="nav-item" onClick={() => navigate("/profile")}>Profil</div>
+          <div className="nav-item logout" onClick={logOut}>Çıkış Yap</div>
         </div>
       ) : (
-        <div className="navbar-buttons">
-          <Link to="/login"><button className="nav-btn">Giriş</button></Link>
-          <Link to="/signup"><button className="nav-btn">Kayıt</button></Link>
+        <div className="navbar-links">
+          <div className="nav-item" onClick={() => navigate("/login")}>Giriş</div>
+          <div className="divider"></div>
+          <div className="nav-item" onClick={() => navigate("/signup")}>Kayıt</div>
         </div>
       )}
     </div>
