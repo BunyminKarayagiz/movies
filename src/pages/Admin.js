@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import UserAdd from "./UserAdd";
-import UserList from "./UserList";
+import UserAdd from "../components/UserAdd.js";
+import UserList from "../components/UserList";
 import "../styles/Admin.css";
 
 function Admin() {

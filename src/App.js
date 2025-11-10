@@ -1,12 +1,12 @@
 import React from 'react'
 import './App.css';
-import Login from './components/Login.js';    // Yeni sayfalar, sen oluşturacaksın
-import Signup from './components/SignUp.js';
-import Home from './Home.js';      // Film ve TV listelerinin olduğu sayfa
-import Admin from './components/Admin.js'
+import Login from './pages/Login.js';    // Yeni sayfalar, sen oluşturacaksın
+import Signup from './pages/SignUp.js';
+import Home from './pages/Home.js';      // Film ve TV listelerinin olduğu sayfa
+import Admin from './pages/Admin.js'
 import UserLayout from './UserLayout.js';
-import Profile from './components/Profile.js';
-import WatchList from "./components/WatchList";
+import Profile from './pages/Profile.js';
+import WatchList from "./pages/WatchList.js";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import ItemDetail from "./components/ItemDetails.js"
 

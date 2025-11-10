@@ -1,8 +1,8 @@
-import "./App.css";
-import Header from "./components/Header.js";
+import "../App.css";
+import Header from "../components/Header.js";
 import { useState, useEffect } from "react";
-import Items from "./components/Items.js";
-import {fetchTopRated,searchItems} from "./services/apiServices.js"
+import Items from "../components/Items.js";
+import {fetchTopRated,searchItems} from "../services/apiServices.js"
 
 function Home() {
 
