@@ -1,37 +1,15 @@
-import axios from "axios";
+import apiClient from "./apiClient";
 
-const myApiKey = process.env.REACT_APP_API_KEY;
-const myAccessToken = process.env.REACT_APP_ACCESS_TOKEN;
 
 //Get Top Rated items
 export async function fetchTopRated (){
       try {
-        const responsemovie = await axios.get(
-          "https://api.themoviedb.org/3/movie/top_rated",
-          {
-            headers: {
-              Authorization: process.env.REACT_APP_ACCESS_TOKEN,
-            },
-            params: {
-              language: "en-US",
-              page: 1,
-            },
-          }
-        );
-        const responsetv = await axios.get(
-          "https://api.themoviedb.org/3/tv/popular",
-          {
-            headers: {
-              Authorization: process.env.REACT_APP_ACCESS_TOKEN,
-            },
-            params: {
-              language: "en-US",
-              page: 1,
-            },
-          }
-        );
+        const [movies, tv] = await Promise.all([
+          apiClient.get("movie/top_rated", { params: { language: "en-US", page: 1 } }),
+          apiClient.get("tv/popular", { params: { language: "en-US", page: 1 } }),
+        ]);
 
-        const topMovies = responsemovie.data.results
+        const topMovies = movies.data.results
           .filter((item) => item.vote_average > 0)
           .sort(
             (a, b) =>
@@ -39,7 +17,7 @@ export async function fetchTopRated (){
           )
           .slice(0, 12);
 
-        const topSeries = responsetv.data.results
+        const topSeries = tv.data.results
           .filter((item) => item.vote_average > 0)
           .sort(
             (a, b) =>
@@ -56,18 +34,12 @@ export async function fetchTopRated (){
 // Search items
 export async function searchItems (term){
     try {
-      const [responseMovie, responseTv] = await Promise.all([
-        axios.get("https://api.themoviedb.org/3/search/movie", {
-          headers: { Authorization: myAccessToken },
-          params: { api_key: myApiKey, query: term },
-        }),
-        axios.get("https://api.themoviedb.org/3/search/tv", {
-          headers: { Authorization: myAccessToken },
-          params: { api_key: myApiKey, query: term },
-        }),
+      const [movies, tv] = await Promise.all([
+        apiClient.get("search/movie", { params: {query:term } }),
+        apiClient.get("search/tv", { params: { query:term } }),
       ]);
 
-      const sortedMovies = responseMovie.data.results
+      const sortedMovies = movies.data.results
         .filter((item) => item.vote_average > 0)
         .sort(
           (a, b) =>
@@ -75,7 +47,7 @@ export async function searchItems (term){
         )
         .slice(0, 12);
 
-      const sortedTv = responseTv.data.results
+      const sortedTv = tv.data.results
         .filter((item) => item.vote_average > 0)
         .sort(
           (a, b) =>
@@ -92,17 +64,8 @@ export async function searchItems (term){
 
 export async function fetchTrailer (type,item){
   try {
-        const response = await axios.get(
-          `https://api.themoviedb.org/3/${type}/${item.id}/videos`,
-          {
-            headers: {
-              Authorization: process.env.REACT_APP_ACCESS_TOKEN,
-            },
-            params: {
-              api_key: process.env.REACT_APP_API_KEY,
-            },
-          }
-        );
+
+        const response = await apiClient.get(`${type}/${item.id}/videos`);
 
         const trailers = response.data.results;
         const youtubeTrailer = trailers.find(

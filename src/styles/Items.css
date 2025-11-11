@@ -46,35 +46,32 @@
   bottom: 0;
   left: 0;
   right: 0;
-  max-height: 0;
   overflow: hidden;
-  color: #fff;
-  padding: 10px;
+  color: #fff;  
   transition: max-height 0.3s ease;
+  height: 500px;
+  opacity: 1;
+  opacity: 0;
+  padding: 10px;
+}
+
+.card-details{
+  position:absolute;
+  bottom: 0px;
+}
+.card-details span{
+  color: #00aaff;
+}
+.card-title h1{
+  color: #00aaff;
+}
+.card-item:hover .card-content{
+  transition: opacity 0.5s ease;
   opacity: 1;
 }
-.card-content h1{
-  margin-bottom: 150px;
-  color: #00aaff;
-}
 
-.card-content span{
-  color: #00aaff;
-}
-
-.card-item:hover .card-content {
-  max-height: 500px; /* hover ile detay açılır */
-}
 
 /* Başlık ve dil gibi küçük bilgiler kart üzerinde */
-.card-item .card-title {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  color: #00ffd0;
-  font-weight: bold;
-}
-
 
 .add-watchlist-btn{
   z-index: 100;
@@ -103,4 +100,5 @@
   object-fit: cover;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   transition: transform 0.4s ease;
+  border-radius: 8px;
 }

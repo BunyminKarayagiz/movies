@@ -88,12 +88,18 @@ function Item({ item }) {
       )}
       <Link to={`/${type}/${item.id}`} className="movie-card-link">
         <div className="card-content">
-          <h1>{item.title || item.name}</h1>
-          <p><span>Dil:</span> {item.original_language}</p>
-          <p><span>Açıklama:</span> {item.overview.length > 200
-        ? item.overview.substring(0, 200) + '...'
-        : item.overview}</p>
-          <p><span>Çıkış Tarihi:</span> {item.release_date || item.first_air_date}</p>
+
+          <div className="card-title">
+            <h1>{item.title || item.name}</h1>
+          </div>
+          
+          <div className="card-details">
+            <p><span>Dil:</span> {item.original_language}</p>
+            <p><span>Açıklama:</span> {item.overview.length > 200
+          ? item.overview.substring(0, 200) + '...'
+          : item.overview}</p>
+            <p><span>Çıkış Tarihi:</span> {item.release_date || item.first_air_date}</p>
+          </div>
         </div>
         </Link>
       </div>

@@ -1,0 +1,60 @@
+/* src/styles/NotFound.css */
+
+.notfound-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background: linear-gradient(135deg, #f9fafb, #e5e7eb);
+  text-align: center;
+  color: #1f2937;
+  font-family: "Poppins", sans-serif;
+}
+
+.notfound-title {
+  font-size: 6rem;
+  font-weight: 800;
+  color: #3b82f6;
+  margin-bottom: 0.5rem;
+}
+
+.notfound-text {
+  font-size: 1.2rem;
+  color: #4b5563;
+  margin-bottom: 2rem;
+}
+
+.notfound-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.notfound-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.notfound-btn.home {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.notfound-btn.home:hover {
+  background-color: #2563eb;
+}
+
+.notfound-btn.back {
+  background-color: #e5e7eb;
+  color: #1f2937;
+}
+
+.notfound-btn.back:hover {
+  background-color: #d1d5db;
+}
