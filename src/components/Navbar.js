@@ -5,7 +5,8 @@ import { signOut, onAuthStateChanged } from "firebase/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc } from "firebase/firestore";
 
-function Navbar() {
+
+function Navbar(search) {
   const [currentUser, setCurrentUser] = useState(null);
   const [userRole, setUserRole] = useState("");
   const navigate = useNavigate();
@@ -39,7 +40,6 @@ function Navbar() {
           MovieExplorer
         </Link>
       </h1>
-
       {currentUser ? (
         <div className="navbar-links">
           {userRole === "admin" && (

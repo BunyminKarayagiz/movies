@@ -1,27 +1,36 @@
-import React,{useState} from 'react'
-import '../styles/Header.css'
+import React, { useState } from "react";
+import "../styles/Header.css";
+import { FaSearch } from "react-icons/fa";
 
-function Header({search}) {
-  const [valueInput,setValueInput] = useState('')
+function Header({ search }) {
+  const [valueInput, setValueInput] = useState("");
 
   const inputChange = (inputValue) => {
-    setValueInput(inputValue.target.value)
-  }
+    setValueInput(inputValue.target.value);
+  };
 
   const submitting = (event) => {
     event.preventDefault();
-    search(valueInput)
-  }
+    search(valueInput);
+  };
 
   return (
     <div>
-      <form className='formDiv' onSubmit={submitting}>
-          <label>Search Movie</label>
-          <input value={valueInput} type='text' placeholder='Enter the Movie Name' onChange={inputChange}/>
-          <button type="submit" className="search-btn">Search</button>
+      <form className="formDiv" onSubmit={submitting}>
+        <div className="search-div">
+          <input
+            value={valueInput}
+            type="text"
+            placeholder="Enter the Movie Name"
+            onChange={inputChange}
+          />
+          <button type="submit" className="search-btn">
+            <FaSearch />
+          </button>
+        </div>
       </form>
     </div>
-  )
+  );
 }
 
-export default Header
+export default Header;
